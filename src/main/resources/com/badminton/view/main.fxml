@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.badminton.controller.MainController" stylesheets="@theme.css" prefWidth="1360" prefHeight="900">
+    <top>
+        <VBox spacing="0">
+            <HBox alignment="CENTER_LEFT" spacing="18" styleClass="header">
+                <padding><Insets top="18" right="28" bottom="18" left="28"/></padding>
+                <Label text="B / C" styleClass="header-logo"/>
+                <VBox spacing="2"><Label text="BADMINTON CLUB" styleClass="header-title"/><Label text="ระบบจัดการสนามแบดมินตัน" styleClass="light-label"/></VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="staffLabel" styleClass="light-label"/>
+                <Button text="ออกจากระบบ" onAction="#logout" styleClass="header-button"/>
+            </HBox>
+            <HBox spacing="16" styleClass="stats-strip">
+                <padding><Insets top="17" right="28" bottom="17" left="28"/></padding>
+                <HBox spacing="12" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS"><Label fx:id="memberCountLabel" text="0" styleClass="stat-number"/><Label text="สมาชิกทั้งหมด" styleClass="muted"/></HBox>
+                <HBox spacing="12" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS"><Label fx:id="todayCountLabel" text="0" styleClass="stat-number"/><Label text="รายการจองวันนี้" styleClass="muted"/></HBox>
+                <HBox spacing="12" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS"><Label text="12" styleClass="stat-number"/><Label text="สนามพร้อมให้บริการ" styleClass="muted"/></HBox>
+                <Label text="180 บาท / ชั่วโมง" styleClass="rate-badge"/>
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <TabPane fx:id="tabs" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="จองสนาม">
+                    <HBox spacing="20" styleClass="tab-body">
+                        <padding><Insets top="22" right="24" bottom="18" left="24"/></padding>
+                        <VBox spacing="10" prefWidth="370" minWidth="350">
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="form-scroll" VBox.vgrow="ALWAYS">
+                            <VBox spacing="11" styleClass="card">
+                                <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                                <Label text="สร้างการจอง" styleClass="section-title"/>
+                                <Label text="สมาชิก"/><ComboBox fx:id="bookingMember" maxWidth="Infinity" promptText="เลือกสมาชิก"/>
+                                <Label fx:id="memberBalanceLabel" wrapText="true" styleClass="muted"/>
+                                <Label text="วันที่ใช้สนาม"/><DatePicker fx:id="bookingDate" editable="false" maxWidth="Infinity"/>
+                                <Label fx:id="hoursLabel" styleClass="green-note"/>
+                                <HBox spacing="10">
+                                    <VBox spacing="6" HBox.hgrow="ALWAYS"><Label text="สนาม"/><ComboBox fx:id="courtCombo" maxWidth="Infinity"/></VBox>
+                                    <VBox spacing="6" HBox.hgrow="ALWAYS"><Label text="เริ่ม (นาฬิกา)"/><ComboBox fx:id="startCombo" maxWidth="Infinity"/></VBox>
+                                    <VBox spacing="6" HBox.hgrow="ALWAYS"><Label text="ชั่วโมง"/><ComboBox fx:id="durationCombo" maxWidth="Infinity"/></VBox>
+                                </HBox>
+                                <Label text="การชำระเงิน"/><ComboBox fx:id="paymentCombo" maxWidth="Infinity"/>
+                                <Label fx:id="quoteLabel" wrapText="true" maxWidth="Infinity" styleClass="quote" minHeight="66"/>
+                                <Button text="+ แนบสลิปการชำระเงิน" onAction="#chooseBookingSlip" maxWidth="Infinity"/>
+                                <Label fx:id="bookingSlipLabel" text="ยังไม่ได้เลือกสลิป" wrapText="true" styleClass="muted"/>
+                                <Label text="แนบหลักฐานทุกครั้ง รวมถึงการใช้แพ็กเกจ&#10;ชั่วโมงสะสมที่ 20, 40, ... ชำระเพียง 54 บาท" wrapText="true" styleClass="fine-print"/>
+                            </VBox>
+                        </ScrollPane>
+                        <Button fx:id="saveBookingButton" text="บันทึกการจอง" onAction="#saveBooking" maxWidth="Infinity" styleClass="primary"/>
+                        </VBox>
+                        <VBox spacing="14" HBox.hgrow="ALWAYS">
+                            <Label text="เลือกสนามว่าง" styleClass="section-title"/>
+                            <Label text="สถานะตามวันที่ เวลาเริ่ม และจำนวนชั่วโมงที่เลือก • คลิกสนามเพื่อเลือก" styleClass="muted" wrapText="true"/>
+                            <TilePane fx:id="courtGrid" hgap="8" vgap="8" prefColumns="6"/>
+                            <Separator/>
+                            <Label text="ค้นหาการจอง" styleClass="section-title"/>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <TextField fx:id="bookingSearch" promptText="เลขที่ / ชื่อ / เบอร์โทร / สนาม" HBox.hgrow="ALWAYS"/>
+                                <DatePicker fx:id="searchDate" editable="false" prefWidth="145"/>
+                                <CheckBox fx:id="allDates" text="ทุกวัน"/>
+                            </HBox>
+                            <TableView fx:id="bookingTable" VBox.vgrow="ALWAYS" prefHeight="350"/>
+                            <HBox spacing="10"><Button text="เปิดสลิปของรายการที่เลือก" onAction="#openBookingSlip"/><Region HBox.hgrow="ALWAYS"/><Button text="รีเฟรช" onAction="#refreshAll"/></HBox>
+                        </VBox>
+                    </HBox>
+                </Tab>
+                <Tab text="สมาชิก">
+                    <VBox spacing="18" styleClass="tab-body">
+                        <padding><Insets top="24" right="28" bottom="24" left="28"/></padding>
+                        <Label text="สมาชิกของคลับ" styleClass="page-title"/>
+                        <Label text="ผู้จองสนามต้องสมัครสมาชิกก่อน • ใช้เบอร์โทรศัพท์ไม่ซ้ำกัน" styleClass="muted"/>
+                        <HBox spacing="16" alignment="BOTTOM_LEFT" styleClass="card">
+                            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                            <VBox spacing="7" HBox.hgrow="ALWAYS"><Label text="ชื่อ-นามสกุล"/><TextField fx:id="memberName" promptText="ชื่อสมาชิก"/></VBox>
+                            <VBox spacing="7" HBox.hgrow="ALWAYS"><Label text="เบอร์โทรศัพท์"/><TextField fx:id="memberPhone" promptText="เบอร์โทร 9-10 หลัก"/></VBox>
+                            <Button text="+ สมัครสมาชิก" onAction="#registerMember" styleClass="primary"/>
+                        </HBox>
+                        <TextField fx:id="memberSearch" promptText="ค้นหาสมาชิกด้วยชื่อ รหัส หรือเบอร์โทร" maxWidth="480"/>
+                        <TableView fx:id="memberTable" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                </Tab>
+                <Tab text="แพ็กเกจ">
+                    <VBox spacing="22" styleClass="tab-body">
+                        <padding><Insets top="26" right="30" bottom="26" left="30"/></padding>
+                        <Label text="เล่นให้คุ้ม ด้วยแพ็กเกจสมาชิก" styleClass="page-title"/>
+                        <HBox spacing="30">
+                            <VBox spacing="15" styleClass="package-card" prefWidth="420">
+                                <padding><Insets top="32" right="32" bottom="32" left="32"/></padding>
+                                <Label text="CLUB PASS" styleClass="light-label"/>
+                                <Label text="15 ชั่วโมง" styleClass="package-title"/>
+                                <Label text="2,600 บาท" styleClass="login-tagline"/>
+                                <Separator/>
+                                <Label text="ซื้อเพิ่มได้ • รวมยอดชั่วโมงไว้ในบัญชีสมาชิก&#10;ใช้จองสนามใดก็ได้ทั้ง 12 สนาม" wrapText="true" styleClass="light-label"/>
+                            </VBox>
+                            <VBox spacing="14" prefWidth="470" styleClass="card">
+                                <padding><Insets top="26" right="26" bottom="26" left="26"/></padding>
+                                <Label text="ซื้อแพ็กเกจ" styleClass="section-title"/>
+                                <ComboBox fx:id="packageMember" promptText="เลือกสมาชิก" maxWidth="Infinity"/>
+                                <Label fx:id="packageBalanceLabel" styleClass="green-note"/>
+                                <Button text="+ แนบสลิป 2,600 บาท" onAction="#choosePackageSlip"/>
+                                <Label fx:id="packageSlipLabel" text="ยังไม่ได้เลือกสลิป" wrapText="true" styleClass="muted"/>
+                                <Button text="ยืนยันซื้อแพ็กเกจ • 2,600 บาท" onAction="#buyPackage" maxWidth="Infinity" styleClass="primary"/>
+                            </VBox>
+                        </HBox>
+                        <Label text="กติกาส่วนลดและแพ็กเกจ" styleClass="section-title"/>
+                        <Label text="ทุกชั่วโมงที่จองสำเร็จสะสมสิทธิ์ส่วนลด ไม่ว่าจะจ่ายรายชั่วโมงหรือใช้แพ็กเกจ&#10;ชั่วโมงที่ 20, 40, 60, ... ชำระเงิน 54 บาท และไม่ตัดชั่วโมงแพ็กเกจสำหรับชั่วโมงนั้น&#10;ชั่วโมงอื่นตัดจากแพ็กเกจตามจำนวนที่ใช้ ต้องมีชั่วโมงพอสำหรับทั้งรายการ&#10;รายได้แพ็กเกจบันทึกตอนซื้อ เมื่อนำชั่วโมงมาใช้จะไม่คิดรายได้ซ้ำ" wrapText="true" styleClass="muted"/>
+                    </VBox>
+                </Tab>
+                <Tab text="เช่าและขายอุปกรณ์">
+                    <VBox spacing="18" styleClass="tab-body">
+                        <padding><Insets top="22" right="28" bottom="22" left="28"/></padding>
+                        <HBox alignment="CENTER_LEFT" spacing="22"><Label text="อุปกรณ์พร้อมลงสนาม" styleClass="page-title"/><ComboBox fx:id="storeMember" prefWidth="420" promptText="เลือกสมาชิกผู้ซื้อ / ผู้เช่า"/></HBox>
+                        <HBox spacing="20">
+                            <VBox spacing="11" styleClass="card" HBox.hgrow="ALWAYS">
+                                <padding><Insets top="20" right="22" bottom="20" left="22"/></padding>
+                                <Label text="ขายสินค้า" styleClass="section-title"/>
+                                <ComboBox fx:id="productCombo" maxWidth="Infinity"/>
+                                <HBox spacing="12" alignment="CENTER_LEFT"><Label text="จำนวน"/><Spinner fx:id="productQuantity" prefWidth="110" editable="false"/><Label fx:id="productTotalLabel" styleClass="green-note"/></HBox>
+                                <Button text="รับเงินและบันทึกขาย" onAction="#sellProduct" styleClass="primary"/>
+                            </VBox>
+                            <VBox spacing="11" styleClass="card" HBox.hgrow="ALWAYS">
+                                <padding><Insets top="20" right="22" bottom="20" left="22"/></padding>
+                                <Label text="เช่าอุปกรณ์ • 50 บาท / คู่ / ครั้ง / วัน" styleClass="section-title"/>
+                                <HBox spacing="10"><ComboBox fx:id="rentalCombo" HBox.hgrow="ALWAYS" maxWidth="Infinity"/><DatePicker fx:id="rentalDate" editable="false" prefWidth="155"/></HBox>
+                                <HBox spacing="12" alignment="CENTER_LEFT"><Label text="จำนวนคู่"/><Spinner fx:id="rentalQuantity" prefWidth="110" editable="false"/><Label fx:id="rentalTotalLabel" styleClass="green-note"/></HBox>
+                                <Button text="รับเงินและบันทึกเช่า" onAction="#saveRental" styleClass="primary"/>
+                            </VBox>
+                        </HBox>
+                        <Label text="รายการเช่าอุปกรณ์" styleClass="section-title"/>
+                        <TableView fx:id="rentalTable" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                </Tab>
+                <Tab fx:id="historyTab" text="ประวัติสมาชิก">
+                    <VBox spacing="18" styleClass="tab-body">
+                        <padding><Insets top="24" right="28" bottom="24" left="28"/></padding>
+                        <Label text="ประวัติการจองของสมาชิก" styleClass="page-title"/>
+                        <ComboBox fx:id="historyMember" prefWidth="480" promptText="เลือกสมาชิก"/>
+                        <TableView fx:id="historyTable" VBox.vgrow="ALWAYS"/>
+                        <Button text="เปิดสลิปของรายการที่เลือก" onAction="#openHistorySlip"/>
+                    </VBox>
+                </Tab>
+                <Tab fx:id="reportTab" text="รายได้">
+                    <VBox spacing="16" styleClass="tab-body">
+                        <padding><Insets top="22" right="28" bottom="22" left="28"/></padding>
+                        <HBox alignment="CENTER_LEFT" spacing="16"><Label text="สรุปรายได้" styleClass="page-title"/><ComboBox fx:id="reportMode" prefWidth="120"/><DatePicker fx:id="reportDate" editable="false"/><Region HBox.hgrow="ALWAYS"/><Button text="ส่งออก CSV" onAction="#exportReport"/></HBox>
+                        <Label fx:id="reportRangeLabel" styleClass="muted"/>
+                        <HBox spacing="16">
+                            <VBox spacing="5" styleClass="total-card" HBox.hgrow="ALWAYS"><padding><Insets top="15" right="22" bottom="15" left="22"/></padding><Label text="รายได้รวม" styleClass="light-label"/><Label fx:id="reportTotalLabel" styleClass="total-value"/></VBox>
+                            <VBox spacing="5" styleClass="card" HBox.hgrow="ALWAYS"><padding><Insets top="15" right="18" bottom="15" left="18"/></padding><Label text="ค่าเช่าสนาม" styleClass="muted"/><Label fx:id="courtRevenueLabel" styleClass="section-title"/></VBox>
+                            <VBox spacing="5" styleClass="card" HBox.hgrow="ALWAYS"><padding><Insets top="15" right="18" bottom="15" left="18"/></padding><Label text="แพ็กเกจ" styleClass="muted"/><Label fx:id="packageRevenueLabel" styleClass="section-title"/></VBox>
+                            <VBox spacing="5" styleClass="card" HBox.hgrow="ALWAYS"><padding><Insets top="15" right="18" bottom="15" left="18"/></padding><Label text="เช่าอุปกรณ์" styleClass="muted"/><Label fx:id="rentalRevenueLabel" styleClass="section-title"/></VBox>
+                            <VBox spacing="5" styleClass="card" HBox.hgrow="ALWAYS"><padding><Insets top="15" right="18" bottom="15" left="18"/></padding><Label text="ขายสินค้า" styleClass="muted"/><Label fx:id="productRevenueLabel" styleClass="section-title"/></VBox>
+                        </HBox>
+                        <TableView fx:id="reportTable" VBox.vgrow="ALWAYS"/>
+                        <Label text="รายงานตามวันที่รับเงิน • แพ็กเกจนับรายได้ตอนซื้อ • การใช้ชั่วโมงแพ็กเกจไม่ถูกนับเป็นรายได้ซ้ำ" wrapText="true" styleClass="muted"/>
+                    </VBox>
+                </Tab>
+                <Tab fx:id="holidaysTab" text="วันหยุด">
+                    <VBox spacing="18" styleClass="tab-body">
+                        <padding><Insets top="26" right="30" bottom="26" left="30"/></padding>
+                        <Label text="วันหยุดนักขัตฤกษ์" styleClass="page-title"/>
+                        <Label text="ผู้ดูแลเพิ่มวันหยุดตามปฏิทินของสถานที่ก่อนรับจอง • เปิด 10:00 - 20:00 น.&#10;เสาร์และอาทิตย์ใช้เวลาวันหยุดโดยอัตโนมัติ ไม่จำเป็นต้องเพิ่มในรายการ" wrapText="true" minHeight="56" styleClass="muted"/>
+                        <HBox spacing="14"><DatePicker fx:id="holidayDate" editable="false"/><Button text="+ เพิ่มวันหยุด" onAction="#addHoliday" styleClass="primary"/><Button text="ลบวันหยุดที่เลือก" onAction="#removeHoliday"/></HBox>
+                        <ListView fx:id="holidayList" maxWidth="640" VBox.vgrow="ALWAYS"/>
+                        <Label text="ระบบจะป้องกันการเปลี่ยนวันหยุด หากทำให้การจองเดิมอยู่นอกเวลาเปิดใหม่" styleClass="muted" wrapText="true"/>
+                    </VBox>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+    <bottom><HBox styleClass="status-bar"><padding><Insets top="11" right="28" bottom="11" left="28"/></padding><Label fx:id="statusLabel" text="พร้อมใช้งาน • บันทึกข้อมูลลงเครื่องอัตโนมัติหลังทำรายการสำเร็จ" wrapText="true"/></HBox></bottom>
+</BorderPane>

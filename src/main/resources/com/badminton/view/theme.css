@@ -1,0 +1,84 @@
+/* ธีมของโปรแกรม: สีเขียวเข้มเป็นสีหลัก ใช้ทั้งหน้าเข้าสู่ระบบและหน้าหลัก
+   ฟอนต์ Leelawadee UI มีใน Windows ถ้าไม่มีจะใช้ Tahoma หรือฟอนต์ sans-serif ของเครื่องแทน */
+.root { -fx-font-family: "Leelawadee UI", "Tahoma", sans-serif; -fx-font-size: 14px; -fx-background-color: #f3f6f3; -fx-text-fill: #203c33; -fx-accent: #217458; -fx-focus-color: #217458; -fx-faint-focus-color: #21745822; }
+.label { -fx-text-fill: #263e35; }
+
+/* แถบหัว และฝั่งแบรนด์ของหน้าเข้าสู่ระบบ */
+.header, .login-brand, .package-card { -fx-background-color: #153e31; }
+.header-logo { -fx-background-color: #d3eb9f; -fx-background-radius: 9; -fx-padding: 10 15; -fx-text-fill: #153e31; -fx-font-weight: bold; -fx-font-size: 22; }
+.header-title { -fx-text-fill: white; -fx-font-size: 21; -fx-font-weight: bold; }
+.light-label { -fx-text-fill: #d0e2d8; -fx-line-spacing: 6; }
+.login-title { -fx-font-size: 52; -fx-font-weight: bold; -fx-text-fill: white; -fx-line-spacing: -4; }
+.login-tagline { -fx-font-size: 24; -fx-text-fill: #d3eb9f; }
+.brand-mark { -fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: #d3eb9f; }
+.login-form { -fx-background-color: #ffffff; }
+
+/* ตัวอักษร: หัวข้อ ข้อความรอง ข้อความผิดพลาด */
+.page-title { -fx-font-size: 27; -fx-font-weight: bold; -fx-text-fill: #153e31; }
+.section-title { -fx-font-size: 18; -fx-font-weight: bold; }
+.muted { -fx-text-fill: #64786e; -fx-line-spacing: 8; }
+.eyebrow { -fx-text-fill: #47755b; -fx-font-weight: bold; -fx-font-size: 12; }
+.fine-print { -fx-text-fill: #708176; -fx-font-size: 12; -fx-line-spacing: 4; }
+.error { -fx-text-fill: #ad3939; }
+.green-note { -fx-text-fill: #227155; -fx-font-weight: bold; }
+
+/* แถบสถิติใต้แถบหัว และการ์ดเนื้อหา */
+.stats-strip { -fx-background-color: white; -fx-border-color: transparent transparent #e0e8e2 transparent; }
+.stat-number { -fx-font-size: 29; -fx-text-fill: #184b38; -fx-font-weight: bold; }
+.rate-badge { -fx-background-color: #edf4df; -fx-padding: 9 17; -fx-background-radius: 7; -fx-text-fill: #446234; }
+.card { -fx-background-color: white; -fx-background-radius: 10; -fx-border-color: #e0e8e2; -fx-border-radius: 10; }
+.package-card { -fx-background-radius: 12; }
+.package-title { -fx-font-size: 44; -fx-font-weight: bold; -fx-text-fill: white; }
+/* กล่องสรุปราคาในฟอร์มจอง */
+.quote { -fx-background-color: #edf4e5; -fx-background-radius: 7; -fx-padding: 12; -fx-text-fill: #215d40; -fx-font-weight: bold; }
+
+/* ปุ่ม: ปกติ / primary (ปุ่มบันทึกหลัก) / ปุ่มบนแถบหัว */
+.button { -fx-background-color: #edf1eb; -fx-background-radius: 6; -fx-padding: 9 16; -fx-cursor: hand; -fx-text-fill: #294d3c; }
+.button:hover { -fx-background-color: #dfeadc; }
+.button:pressed { -fx-background-color: #cfdfcc; }
+.button.primary { -fx-background-color: #217458; -fx-text-fill: white; -fx-font-weight: bold; }
+.button.primary:hover { -fx-background-color: #185b43; }
+.button.header-button { -fx-background-color: #2d5645; -fx-text-fill: white; }
+/* ปุ่มสนาม 12 สนาม: เขียว = ว่าง, แดง = ไม่ว่าง */
+.button.court-free { -fx-background-color: #dfedcc; -fx-text-fill: #335c2a; -fx-font-weight: bold; -fx-padding: 9 10; }
+.button.court-free:hover { -fx-background-color: #cfe3ad; }
+.button.court-busy { -fx-background-color: #eee0df; -fx-text-fill: #995551; -fx-opacity: 0.85; -fx-padding: 9 10; }
+
+/* ช่องกรอกข้อมูล ComboBox DatePicker Spinner */
+.text-field, .combo-box, .date-picker, .spinner { -fx-background-color: white; -fx-background-radius: 6; -fx-border-color: #cfdbd1; -fx-border-radius: 6; -fx-min-height: 38; }
+.text-field { -fx-padding: 8 10; }
+.combo-box .list-cell { -fx-padding: 7 10; }
+.date-picker > .text-field, .spinner > .text-field { -fx-border-color: transparent; }
+
+/* แท็บด้านบนของหน้าหลัก */
+.tab-pane > .tab-header-area { -fx-padding: 12 24 0 24; }
+.tab-pane > .tab-header-area > .tab-header-background { -fx-background-color: #f3f6f3; }
+.tab { -fx-background-color: transparent; -fx-background-radius: 7 7 0 0; -fx-padding: 8 14; }
+.tab .tab-label { -fx-text-fill: #6c7d71; }
+.tab:selected { -fx-background-color: white; -fx-border-color: transparent transparent #217458 transparent; -fx-border-width: 0 0 3 0; }
+.tab:selected .tab-label { -fx-text-fill: #18593e; -fx-font-weight: bold; }
+.tab .focus-indicator { -fx-border-color: transparent; }
+.tab-body { -fx-background-color: #f3f6f3; }
+
+/* ตาราง: หัวตาราง แถวสลับสี และแถวที่เลือก */
+.table-view { -fx-background-color: white; -fx-border-color: #dfe7e0; -fx-border-radius: 7; -fx-background-radius: 7; }
+.table-view .column-header, .table-view .filler { -fx-background-color: #eaf0e7; -fx-size: 41; -fx-border-color: transparent; }
+.table-view .column-header .label { -fx-font-size: 12; -fx-alignment: CENTER_LEFT; -fx-padding: 0 8; }
+.table-row-cell { -fx-cell-size: 43; -fx-background-color: white; -fx-border-color: transparent transparent #f0f3ee transparent; }
+.table-row-cell:odd { -fx-background-color: #fafcf8; }
+.table-row-cell:selected { -fx-background-color: #dcebd9; }
+.table-row-cell:selected .table-cell { -fx-text-fill: #194c35; }
+.table-cell { -fx-alignment: CENTER_LEFT; -fx-padding: 8; -fx-border-color: transparent; }
+
+/* ส่วนเลื่อนของฟอร์ม และแถบสถานะด้านล่าง */
+.scroll-pane, .scroll-pane > .viewport { -fx-background-color: transparent; }
+.form-scroll { -fx-padding: 0 5 0 0; }
+.status-bar { -fx-background-color: #e9f0e5; -fx-border-color: #dce6d8 transparent transparent transparent; }
+.status-bar .label { -fx-font-size: 12; -fx-text-fill: #4d6b52; }
+
+/* การ์ดยอดรวมในหน้ารายได้ และรายการวันหยุด */
+.total-card { -fx-background-color: #217458; -fx-background-radius: 9; }
+.total-value { -fx-text-fill: white; -fx-font-size: 26; -fx-font-weight: bold; }
+.list-view { -fx-background-color: white; -fx-border-color: #dfe7e0; -fx-background-radius: 7; }
+.list-cell { -fx-padding: 12; }
+.list-cell:filled:selected { -fx-background-color: #dcebd9; -fx-text-fill: #194c35; }

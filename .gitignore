@@ -1,0 +1,7 @@
+target/
+data/
+.idea/workspace.xml
+.idea/shelf/
+*.iml
+assignment-page1.png
+dist/

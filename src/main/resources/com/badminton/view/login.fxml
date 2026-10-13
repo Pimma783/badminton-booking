@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<HBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.badminton.controller.LoginController" stylesheets="@theme.css" styleClass="login-root" prefWidth="1040" prefHeight="710">
+    <VBox alignment="CENTER_LEFT" spacing="22" prefWidth="495" styleClass="login-brand" HBox.hgrow="ALWAYS">
+        <padding><Insets top="62" right="48" bottom="62" left="56"/></padding>
+        <Label text="B / C" styleClass="brand-mark"/>
+        <Label text="BADMINTON&#10;CLUB" styleClass="login-title"/>
+        <Label text="ทุกแมตช์ เริ่มต้นที่นี่" styleClass="login-tagline"/>
+        <Region prefHeight="24"/>
+        <Label text="12 สนาม  •  180 บาท / ชั่วโมง" styleClass="light-label"/>
+        <Label text="จันทร์ - ศุกร์    13:00 - 21:00&#10;เสาร์ - อาทิตย์ และวันหยุด    10:00 - 20:00" wrapText="true" styleClass="light-label"/>
+    </VBox>
+    <VBox alignment="CENTER_LEFT" spacing="14" prefWidth="545" styleClass="login-form">
+        <padding><Insets top="60" right="60" bottom="60" left="60"/></padding>
+        <Label text="ยินดีต้อนรับ" styleClass="page-title"/>
+        <Label text="เข้าสู่ระบบสำหรับพนักงาน" styleClass="muted"/>
+        <Region prefHeight="12"/>
+        <Label text="ชื่อผู้ใช้"/>
+        <TextField fx:id="usernameField" promptText="กรอกชื่อผู้ใช้" onAction="#login"/>
+        <Label text="รหัสผ่าน"/>
+        <PasswordField fx:id="passwordField" promptText="กรอกรหัสผ่าน" onAction="#login"/>
+        <Label fx:id="errorLabel" text="" wrapText="true" styleClass="error" minHeight="24"/>
+        <Button text="เข้าสู่ระบบ →" onAction="#login" defaultButton="true" maxWidth="Infinity" styleClass="primary"/>
+        <Region prefHeight="8"/>
+        <Label text="บัญชีสำหรับสาธิตงาน OOP" styleClass="eyebrow"/>
+        <Label text="แคชเชียร์   cashier / cashier123&#10;ผู้ดูแลระบบ   admin / admin123" styleClass="muted" wrapText="true"/>
+    </VBox>
+</HBox>
